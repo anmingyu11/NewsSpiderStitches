@@ -23,4 +23,16 @@ classification2lid = dict((v, k) for k, v in lid2classification.items())
 classifications = list(lid2classification.values())  # 新闻类别
 max_num_per_page = 50
 
-columns = ['classify', 'title', 'time', 'url', 'wapurl', 'media_name', 'keywords', 'content']
+columns = [
+    'classify'
+    , 'title'
+    , 'time_stamp'
+    , 'time'
+    , 'url'
+    , 'wapurl'
+    , 'media_name'
+    , 'keywords'
+    , 'intro'
+    #, 'level'
+    , 'content'
+]

@@ -16,7 +16,7 @@ required = [
 
 setup(
     name="NewsStiches",
-    version="0.0.1",
+    version="1.0.0",
     description="get news in data frame",
     long_description=long_description,
     long_description_content_type="text/markdown",
