@@ -26,6 +26,12 @@ class SinaNewsCrawller:
         self.__no_cache_downloader = Downloader(cache=None)
         self.__disk_cache_downloader = Downloader(cache=DiskCache())
 
+    def get_rolling_news_bydate(self, classify, get_content=True,date = datetime.now() ):
+        pages = np.arange(1, 30)
+        nums = [cts.max_num_per_page] * len(pages)
+        pages_nums = dict(zip(pages, nums))
+        return self.__get_rowlling_news(classify, pages_nums, get_content, date)
+
     def get_rolling_news_bypage(self, page_from, page_to, get_content=True, classify=None):
         '''
         获取新浪滚动新闻，每页50条新闻
@@ -64,7 +70,7 @@ class SinaNewsCrawller:
         classify = cts.lid2classification[lid]
         return lid, classify
 
-    def __get_rowlling_news(self, classify, pages_nums, get_content=True):
+    def __get_rowlling_news(self, classify, pages_nums, get_content=True, date=None):
         if classify:
             assert classify in cts.classifications, (
                 '请设置 classify 为 {}中的一个'.format(cts.classifications)
@@ -84,6 +90,10 @@ class SinaNewsCrawller:
                 # json.dump(data, json_file)
                 ctime_raw = data['ctime']
                 ctime = datetime.fromtimestamp(int(data['ctime']))
+                # print(ctime.month, '-', ctime.day)
+                print('date: ', 'month: ', ctime.month, '-', ' day: ', ctime.day)
+                if date and not (date.month is ctime.month and date.day is ctime.day):
+                    continue
                 ctime = datetime.strftime(ctime, '%Y-%m-%d %H:%M')
                 url = data['url']
                 row = [
